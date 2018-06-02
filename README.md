@@ -102,9 +102,16 @@ More information [here](https://static.javadoc.io/org.mockito/mockito-core/1.10.
 
 ### Templates in intelliJ 
 
-Templates for test method and test class enable us to automate repetive tasks when writing tests.
+IntelliJ provides templates for test methods and test classes.
+They are very helpfull in getting ride of repetive task such as: 
+- add static import for Mockito and AssertJ 
+- embeding comments for 'given-when-then' inside test method 
+
 
 ##### Test method #####
+
+In order to edit template for test method go to File | Settings | Editor | File and Code Templates. 
+Choose 'code' tab and edit JUnit4 Test Method with following values. 
 
 ```java
 @org.junit.Test
@@ -115,10 +122,11 @@ public void should${NAME}() {
   //then
 }
 ```
-
+To use template press Cltr + Insert inside test class and choose Test Method.
 
 ##### Test class #####
 
+In order to edit template for test class go to File | Settings | Editor | File and Code Templates. 
 
 ```java
 import static org.assertj.core.api.WithAssertions.*;
@@ -129,7 +137,7 @@ public class ${NAME} {
   ${BODY}
 }    
 ```
-
+To use template press Ctrl + Shift + T inside class and pick Create New Test ...
 
 
 

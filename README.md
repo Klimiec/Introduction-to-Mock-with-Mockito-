@@ -21,7 +21,9 @@ java.lang.NullPointerException
     at domain.ItemService.issueInvoice(ItemService.java:10)
     at domain.a_missing_mock_for_organisation.ItemServiceTest.shouldIssueAnInvoiceWithSuccess(ItemServiceTest.java:24)
 ```
-Above stack trace informed us only about the line number where NullPointerException occurred. It isn’t obvious at first glance that the source of the problem was default value returned from unstubbed method that developer has forgotten to stub. What if we could get a more readable stack trace that help us track the bug right away. It turns out that Mockito has such feature - SmartNull. 
+Code example [here](xyz)
+
+Above stack trace informes us only about the line number where NullPointerException occurred. It isn’t obvious at first glance that the source of the problem was default value returned from unstubbed method that developer has forgotten to stub. What if we could get a more readable stack trace that help us track the bug right away. It turns out that Mockito has such feature - SmartNull. 
 
 
 ### SmartNulls
@@ -41,8 +43,9 @@ item.getOrganisation();
 	at domain.ItemService.issueInvoice(ItemService.java:10)
 	at domain.b_smart_null.ItemServiceTest.shouldIssueAnInvoiceWithSuccess(ItemServiceTest.java:28)
 ```
+Code example [here](xyz)
 
-To make mock returns SmartNull instead of null use override default answer with RETURNS_SMART_NULLS flag
+To make mock returns SmartNull instead of null override default answer with RETURNS_SMART_NULLS flag
 
 ```java
 mock(Item.class, RETURNS_SMART_NULLS);
@@ -72,7 +75,7 @@ public class MockitoConfiguration extends DefaultMockitoConfiguration{
     }
 }
 ```
-
+Code example [here](xyz)
 
 ### Deep stubbing
 
@@ -98,6 +101,37 @@ We can shorten deep stubbing creation with RETURNS_DEEP_STUBS
 More information [here](https://static.javadoc.io/org.mockito/mockito-core/1.10.19/org/mockito/Mockito.html#RETURNS_DEEP_STUBS)
 
 ### Templates in intelliJ 
+
+Templates for test method and test class enable us to automate repetive tasks when writing tests.
+
+##### Test method #####
+
+```java
+@org.junit.Test
+public void should${NAME}() {
+  //given
+  ${BODY}
+  //when
+  //then
+}
+```
+
+
+##### Test class #####
+
+
+```java
+import static org.assertj.core.api.WithAssertions.*;
+import static org.mockito.BDDMockito.*;
+
+#parse("File Header.java") 
+public class ${NAME} {
+  ${BODY}
+}    
+```
+
+
+
 
 
 

@@ -129,7 +129,7 @@ To use template press Cltr + Insert inside test class and choose Test Method.
 In order to edit template for test class go to File | Settings | Editor | File and Code Templates. 
 
 ```java
-import static org.assertj.core.api.WithAssertions.*;
+import static org.assertj.core.api.Assertions.*;
 import static org.mockito.BDDMockito.*;
 
 #parse("File Header.java") 

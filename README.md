@@ -18,7 +18,7 @@ When no stubbed, methods of mocks return zeros, falseys, empty collections or nu
 
 ```text
 java.lang.NullPointerException
-    at domain.ItemService.issueInvoice(ItemService.java:10)
+    at domain.InvoiceService.issueInvoice(ItemService.java:10)
     at domain.a_missing_mock_for_organisation.ItemServiceTest.shouldIssueAnInvoiceWithSuccess(ItemServiceTest.java:24)
 ```
 Code example [here](xyz)
@@ -34,14 +34,14 @@ It points exactly what unstubbed method on mock was called that lead to NPE.
 ```text
 org.mockito.exceptions.verification.SmartNullPointerException: 
 You have a NullPointerException here:
--> at domain.ItemService.issueInvoice(ItemService.java:10)
+-> at domain.InvoiceService.issueInvoice(ItemService.java:10)
 because this method call was *not* stubbed correctly:
--> at domain.ItemService.issueInvoice(ItemService.java:10)
-item.getOrganisation();
+-> at domain.InvoiceService.issueInvoice(ItemService.java:10)
+order.getOrganisation();
 
 
-	at domain.ItemService.issueInvoice(ItemService.java:10)
-	at domain.b_smart_null.ItemServiceTest.shouldIssueAnInvoiceWithSuccess(ItemServiceTest.java:28)
+	at domain.InvoiceService.issueInvoice(ItemService.java:10)
+	at domain.b_smart_null.InvoiceServiceTest.shouldIssueAnInvoiceWithSuccess(ItemServiceTest.java:28)
 ```
 Code example [here](xyz)
 
@@ -54,7 +54,7 @@ or
 
 ```java
 @Mock(answer = Answers.RETURNS_SMART_NULLS)
-Item item;
+Item order;
 ```
 We need to change default answer for every mock that we want to return smart nulls. Because of this ceremony not many people opt to use this feature. 
 
@@ -84,18 +84,18 @@ Sometimes when working with a badly design legacy system we encounter a situatio
 Example of ‘deep stubbing’ 
 
 ```java
-        Item item = mock(Item.class, RETURNS_SMART_NULLS);
-        Organisation organisation = mock(Organisation.class);
+        Item order = mock(Item.class, RETURNS_SMART_NULLS);
+        Organisation orderItem = mock(Organisation.class);
 
-        when(item.getOrganisation()).thenReturn(organisation);
-        when(organisation.getOrganisationId()).thenReturn(0l);
+        when(order.getOrganisation()).thenReturn(orderItem);
+        when(orderItem.getOrganisationId()).thenReturn(0l);
 ```
 
 We can shorten deep stubbing creation with RETURNS_DEEP_STUBS
 
 ```java
-        Item item = mock(Item.class, RETURNS_DEEP_STUBS);
-        when(item.getOrganisation().getOrganisationId()).thenReturn(0l);
+        Item order = mock(Item.class, RETURNS_DEEP_STUBS);
+        when(order.getOrganisation().getOrganisationId()).thenReturn(0l);
 ```
 
 More information [here](https://static.javadoc.io/org.mockito/mockito-core/1.10.19/org/mockito/Mockito.html#RETURNS_DEEP_STUBS)
